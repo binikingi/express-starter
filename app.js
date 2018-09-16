@@ -21,6 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.get('/checkbranch', (req,res) => {
+  res.status(200).send('branch ok');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
