@@ -24,6 +24,9 @@ app.use('/users', usersRouter);
 app.get('/checkbranch', (req,res) => {
   res.status(200).send('branch ok');
 });
+app.get('/check', (req,res) => {
+    res.status(200).send('check health ok!');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
