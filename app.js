@@ -37,7 +37,7 @@ app.get('/downloadmovie', (req,res) => {
 app.post('/add_movie', (req,res) => {
   const name = req.body.title;
   const link = req.body.link;
-  fs.writeFile('./torrents.txt', link, () => {
+  fs.writeFile('./torrent.txt', link, () => {
       console.log('Wrote ', link);
       res.redirect('localhost:8888/downloadmovie');
   });
