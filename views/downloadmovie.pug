@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    form(action='/add_movie', method='POST')
+        p
+            | title:
+            input(type='text', name='title', value='')
+            | link:
+            input(type='text', name='link', value='')
+        input(type='submit', value='Submit')

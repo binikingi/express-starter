@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var fs = require('fs');
+
 var app = express();
 
 // view engine setup
@@ -21,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 app.get('/checkbranch', (req,res) => {
   res.status(200).send('branch ok');
 });
@@ -28,6 +31,17 @@ app.get('/check', (req,res) => {
     res.status(200).send('check health ok!');
 });
 
+app.get('/downloadmovie', (req,res) => {
+    res.render('downloadmovie', {title: 'download movie to the server'});
+});
+app.post('/add_movie', (req,res) => {
+  const name = req.body.title;
+  const link = req.body.link;
+  fs.writeFile('./torrents.txt', link, () => {
+      console.log('Wrote ', link);
+      res.redirect('localhost:8888/downloadmovie');
+  });
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
