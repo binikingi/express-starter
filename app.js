@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mysql = require('mysql');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -37,9 +38,14 @@ app.get('/downloadmovie', (req,res) => {
 app.post('/add_movie', (req,res) => {
   const name = req.body.title;
   const link = req.body.link;
-  fs.writeFile('./torrent.txt', link, () => {
-      console.log('Wrote ', link);
-      res.redirect('localhost:8888/downloadmovie');
+  var pool  = mysql.createPool({
+      host            : 'testdbinstance.cc2uma6sum94.us-east-2.rds.amazonaws.com',
+      user            : 'root',
+      password        : 'bini1234',
+      database        : 'test'
+  });
+  pool.query("insert into download_queue(magnet) values(?)", [link], function(err, results, fields){
+      res.send('ok');
   });
 });
 // catch 404 and forward to error handler
