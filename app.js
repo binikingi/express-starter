@@ -45,7 +45,11 @@ app.post('/add_movie', (req,res) => {
       database        : 'test'
   });
   pool.query("insert into download_queue(magnet) values(?)", [link], function(err, results, fields){
-      res.send('ok');
+      if(err){
+          res.send(err.message);
+      }
+      else
+        res.send('ok');
   });
 });
 // catch 404 and forward to error handler
