@@ -41,7 +41,7 @@ app.post('/add_movie', (req,res) => {
   var pool  = mysql.createPool({
       host            : 'testdbinstance.cc2uma6sum94.us-east-2.rds.amazonaws.com',
       user            : 'root',
-      password        : 'bini1234',
+      password        : 'rootroot',
       database        : 'test'
   });
   pool.query("insert into download_queue(magnet) values(?)", [link], function(err, results, fields){
